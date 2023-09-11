@@ -36,6 +36,8 @@ if($app)
 
 $appFile = Compile-AppInBcContainer @parameters
 
+Write-Host "Error log is: $parameters['errorLog']"
+
 # Determine whether the current build is a CICD build
 $CICDBuild = $env:GITHUB_WORKFLOW -and ($($env:GITHUB_WORKFLOW).Trim() -eq 'CI/CD')
 
