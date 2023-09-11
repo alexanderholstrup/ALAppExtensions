@@ -36,7 +36,11 @@ if($app)
 
 $appFile = Compile-AppInBcContainer @parameters
 
-Write-Host "Error log is: $parameters['errorLog']"
+$errorLog = $parameters['errorLog']
+Write-Host "Error log is: $errorLog"
+if (Test-Path $errorLog) {
+    Copy-Item -Path $errorLog -Destination (Join-Path $parameters["appProjectFolder"] errorLog.json) -Verbose
+}
 
 # Determine whether the current build is a CICD build
 $CICDBuild = $env:GITHUB_WORKFLOW -and ($($env:GITHUB_WORKFLOW).Trim() -eq 'CI/CD')
