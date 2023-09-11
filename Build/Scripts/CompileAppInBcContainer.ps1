@@ -40,6 +40,8 @@ $errorLog = $parameters['errorLog']
 Write-Host "Error log is: $errorLog"
 if (Test-Path $errorLog) {
     Copy-Item -Path $errorLog -Destination (Join-Path $parameters["appProjectFolder"] errorLog.json) -Verbose
+
+    Get-Content -Path $errorLog -Raw | Write-Host
 }
 
 # Determine whether the current build is a CICD build
