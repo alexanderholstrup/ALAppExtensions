@@ -40,8 +40,6 @@ $errorLogFilePath = $appFile -replace ".app$", "-errorLog.json"
 
 Write-Host "Error log is: $errorLogFilePath"
 if ((Test-Path $errorLogFilePath) -and ($appBuildMode -eq 'Default')) {
-    Get-Content -Path $errorLogFilePath -Raw | Write-Host
-
     $errorLogsPath = "$currentProjectFolder/.buildartifacts/ErrorLogs"
     if(-not (Test-Path $errorLogsPath)) {
         New-Item -Path $currentProjectFolder -Name ".buildartifacts/ErrorLogs" -ItemType Directory | Out-Null
