@@ -145,13 +145,6 @@ jobs:
             installAppsJson: ${{ steps.DownloadProjectDependencies.outputs.DownloadedApps }}
             installTestAppsJson: ${{ steps.DownloadProjectDependencies.outputs.DownloadedTestApps }}
 
-        - name: Code Analysis
-          id: CodeAnalysis
-          uses: aholstrup1/AL-Go/Actions/CodeAnalysis@main
-          with:
-            shell: ${{ inputs.shell }}
-            errorLogPath: '${{ inputs.project }}/errorLog.json'
-
         - name: Sign
           if: inputs.signArtifacts && env.doNotSignApps == 'False' && env.keyVaultCodesignCertificateName != ''
           id: sign

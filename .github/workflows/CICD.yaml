@@ -268,15 +268,23 @@ jobs:
     if: (!cancelled())
     runs-on: [ windows-latest ]
     needs: [ Build ]
+    env:
+      errorLogsPath: ${{ github.workspace }}/.errorLogs
     steps:
       - uses: actions/checkout@v3
 
       - name: Download error logs artifacts
         env:
             GH_TOKEN: ${{ github.token }}
-            errorLogsPath: ${{ github.workspace }}/.errorLogs
         run: |
             gh run download ${{ github.run_id }} --pattern '*-ErrorLogs' --dir $env:errorLogsPath
+
+      - name: Code Analysis
+        id: CodeAnalysis
+        uses: aholstrup1/AL-Go/Actions/CodeAnalysis@main
+        with:
+          shell: powershell
+          errorLogPath: ${{ env.errorLogsPath }}
 
   PostProcess:
     if: (!cancelled())
