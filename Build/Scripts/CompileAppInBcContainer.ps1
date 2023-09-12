@@ -44,9 +44,9 @@ if (Test-Path $errorLogFilePath -and $appBuildMode -eq 'Default') {
 
     Get-Content -Path $errorLog -Raw | Write-Host
 
-    $errorLogsPath = "$currentProjectFolder/.buildartifacts/errorLogs"
+    $errorLogsPath = "$currentProjectFolder/.buildartifacts/ErrorLogs"
     if(-not (Test-Path $errorLogsPath)) {
-        New-Item -Path $currentProjectFolder -Name ".buildartifacts/errorLogs" -ItemType Directory | Out-Null
+        New-Item -Path $currentProjectFolder -Name ".buildartifacts/ErrorLogs" -ItemType Directory | Out-Null
     }
 
     Copy-Item -Path $errorLogFilePath -Destination $errorLogsPath -Verbose

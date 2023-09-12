@@ -144,14 +144,14 @@ jobs:
             buildMode: ${{ inputs.buildMode }}
             installAppsJson: ${{ steps.DownloadProjectDependencies.outputs.DownloadedApps }}
             installTestAppsJson: ${{ steps.DownloadProjectDependencies.outputs.DownloadedTestApps }}
-        
+
         - name: Code Analysis
           id: CodeAnalysis
           uses: aholstrup1/AL-Go/Actions/CodeAnalysis@main
           with:
             shell: ${{ inputs.shell }}
             errorLogPath: '${{ inputs.project }}/errorLog.json'
-        
+
         - name: Sign
           if: inputs.signArtifacts && env.doNotSignApps == 'False' && env.keyVaultCodesignCertificateName != ''
           id: sign
@@ -197,6 +197,14 @@ jobs:
           with:
             name: ${{ steps.calculateArtifactsNames.outputs.AppsArtifactsName }}
             path: '${{ inputs.project }}/.buildartifacts/Apps/'
+            if-no-files-found: ignore
+
+        - name: Publish artifacts - error logs
+          uses: actions/upload-artifact@v3
+          if: inputs.publishArtifacts
+          with:
+            name: $(Get-Date -Format "YYYYMMDDThhmmssZ")-ErrorLogs
+            path: '${{ inputs.project }}/.buildartifacts/ErrorLogs/'
             if-no-files-found: ignore
 
         - name: Publish artifacts - dependencies
