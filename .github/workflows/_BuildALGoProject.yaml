@@ -203,7 +203,7 @@ jobs:
           uses: actions/upload-artifact@v3
           if: inputs.publishArtifacts
           with:
-            name: $(Get-Date -Format "YYYYMMDDThhmmssZ")-ErrorLogs
+            name: ${{ steps.calculateArtifactsNames.outputs.AppsArtifactsName }}-ErrorLogs
             path: '${{ inputs.project }}/.buildartifacts/ErrorLogs/'
             if-no-files-found: ignore
 
