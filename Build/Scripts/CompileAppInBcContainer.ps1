@@ -36,12 +36,20 @@ if($app)
 
 $appFile = Compile-AppInBcContainer @parameters
 
-$errorLog = $parameters['errorLog']
-Write-Host "Error log is: $errorLog"
-if (Test-Path $errorLog) {
-    Copy-Item -Path $errorLog -Destination (Join-Path $parameters["appProjectFolder"] errorLog.json) -Verbose
+$errorLogFilePath = $appFile -replace ".app$", "-errorLog.json"
+
+Write-Host "Error log is: $errorLogFilePath"
+if (Test-Path $errorLogFilePath -and $appBuildMode -eq 'Default') {
+    Copy-Item -Path $errorLogFilePath -Destination (Join-Path $parameters["appProjectFolder"] errorLog.json) -Verbose
 
     Get-Content -Path $errorLog -Raw | Write-Host
+
+    $errorLogsPath = "$currentProjectFolder/.buildartifacts/errorLogs"
+    if(-not (Test-Path $errorLogsPath)) {
+        New-Item -Path $currentProjectFolder -Name ".buildartifacts/errorLogs" -ItemType Directory | Out-Null
+    }
+
+    Copy-Item -Path $errorLogFilePath -Destination $errorLogsPath -Verbose
 }
 
 # Determine whether the current build is a CICD build
@@ -52,5 +60,5 @@ if($CICDBuild) {
     . $PSScriptRoot\Package\CreateAppPackageOutput.ps1 -AppProjectFolder $parameters["appProjectFolder"] -BuildMode $appBuildMode -AppFile $appFile -ALGoProjectFolder $currentProjectFolder -IsTestApp:$(!$app)
 }
 
-# Return the app file path 
+# Return the app file path
 $appFile
