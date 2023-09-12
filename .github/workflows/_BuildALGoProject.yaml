@@ -147,7 +147,7 @@ jobs:
         
         - name: Code Analysis
           id: CodeAnalysis
-          uses: aholstrup1/AL-Go-Actions/CodeAnalysis@main
+          uses: aholstrup1/AL-Go/Actions/CodeAnalysis@main
           with:
             shell: ${{ inputs.shell }}
             errorLogPath: '${{ inputs.project }}/errorLog.json'
