@@ -438,9 +438,7 @@ codeunit 130456 "Test Suite Mgt."
                     CodeunitTestMethodLine.SetRange("Test Suite", TestMethodLine."Test Suite");
                     CodeunitTestMethodLine.SetRange("Test Codeunit", TestMethodLine."Test Codeunit");
                     CodeunitTestMethodLine.FindFirst();
-#pragma warning disable AA0217                    
                     LineNoFilter := StrSubstNo('%1|%2', CodeunitTestMethodLine."Line No.", TestMethodLine."Line No.");
-#pragma warning restore
                 end;
             DummyALTestSuite."Run Type"::"Active Codeunit":
                 begin
@@ -450,10 +448,8 @@ codeunit 130456 "Test Suite Mgt."
                     CodeunitTestMethodLine.FindFirst();
                     MinNumber := CodeunitTestMethodLine."Line No.";
                     CodeunitTestMethodLine.FindLast();
-#pragma warning disable AA0217
                     LineNoFilter :=
                       StrSubstNo('%1..%2', MinNumber, CodeunitTestMethodLine."Line No.");
-#pragma warning restore                      
                 end;
         end;
     end;
@@ -526,9 +522,7 @@ codeunit 130456 "Test Suite Mgt."
         if not AllObjWithCaption.Get(AllObjWithCaption."Object Type"::Codeunit, ALTestSuite."Test Runner Id") then
             exit(NoTestRunnerSelectedTxt);
 
-#pragma warning disable AA0217
         exit(StrSubstNo('%1 - %2', ALTestSuite."Test Runner Id", AllObjWithCaption."Object Name"));
-#pragma warning restore        
     end;
 
     procedure UpdateRunValueOnChildren(var TestMethodLine: Record "Test Method Line")
