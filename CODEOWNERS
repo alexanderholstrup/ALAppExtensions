@@ -3,7 +3,7 @@
 
 # AL-Go files and build scripts are owned by Engineering Systems
 .AL-Go/ @microsoft/d365-bc-engineering-systems
-*.ps1 @microsoft/d365-bc-engineering-systems
+*.ps1 @microsoft/d365-bc-engineering-systems  
 /.azuredevops @microsoft/d365-bc-engineering-systems
 /.github @microsoft/d365-bc-engineering-systems
 /build @microsoft/d365-bc-engineering-systems
